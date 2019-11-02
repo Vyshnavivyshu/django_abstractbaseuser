@@ -6,7 +6,6 @@ from django.db import models
 
 class CustomUser(AbstractBaseUser):
     email = models.CharField(primary_key=True, max_length=254)
-    username = models.CharField(max_length=150)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=150)
     GENDER_CHOICES = (

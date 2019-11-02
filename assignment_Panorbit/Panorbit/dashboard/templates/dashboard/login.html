@@ -4,14 +4,33 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+    </style>
     <script type="text/javascript">
 
         function test_all(){
@@ -81,14 +100,15 @@
     </script>
 
 </head>
-<body>
+<body style="height: 470px;
+    display: flex;
+    align-items: center;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-7">
                     <form method="post" action="/home/login_test/">
                           <div class="form-group">
-                            <label for="email">Email address:</label>
-                            <input type="email" class="form-control" name="email" id="email">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter registered Email" style="width: 400px !important;">
                           </div>
                         <button type="button" class="btn btn-info btn-lg"  onclick="test_all()" style="
     background-color: #4CAF50;
@@ -98,7 +118,6 @@
     border-radius: inherit;
     border: none;
     cursor: pointer;
-    width: 17%;
     opacity: 0.9;
 ">Login</button>
                         <button type="submit"  class="btn btn-default signupbtn" style="display:none;">Submit</button>
@@ -115,14 +134,14 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">OTP is sent to your Email</h4>
         </div>
         <div class="modal-body">
-          <input type="text" placeholder="OTP" name="otp">
+          <input type="text" placeholder="Please enter the OTP" name="otp">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="validate_otp()">submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="validate_otp()" style="width: fit-content;background-color: #2196F3;
+    border-color: #2196F3;color: aliceblue;">submit</button>
         </div>
       </div>
 

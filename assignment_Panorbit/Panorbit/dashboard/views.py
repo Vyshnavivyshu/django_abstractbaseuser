@@ -167,10 +167,12 @@ def send_otp_email(request):
 @csrf_exempt
 def send_otp_email_registered(request):
     email = json.loads(request.body)['email']
+    print(email)
     n = 6
     range_start = 10 ** (n - 1)
     range_end = (10 ** n) - 1
     otp = randint(range_start, range_end)
+    print(otp)
     # try:
     count = CheckOtp.objects.filter(email=email).count()
     print(count)
@@ -208,6 +210,7 @@ def test(request):
 @csrf_exempt
 def check_if_mail_exist(request):
     mail = json.loads(request.body)['email']
+    print(mail,"mail")
     count = CustomUser.objects.filter(email=mail).count()
     print(count)
     return HttpResponse(count)

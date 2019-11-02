@@ -2,7 +2,9 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -123,13 +125,18 @@ input[type=submit] {
     margin-right: 15px;
     margin-top: 10px;
     justify-content: flex-end;">
-             <button type="submit" class="btn btn-primary">Logout</button>
+             <button type="submit" class="btn btn-primary" style="background-color: #2196F3;
+    border-color: #2196F3;">Logout</button>
  </form>
 <div autocomplete="off" style="display: flex;justify-content: center;">
   <div class="autocomplete" style="width:300px;">
-    <input id="myInput" type="text" name="myCountry" placeholder="Country" onkeyup="searchOpen()">
+    <input id="myInput" type="text" name="myCountry" placeholder="Search City/Country/Language" onkeyup="searchOpen()">
   </div>
-  <input type="submit" onclick="submitdata()">
+    <button type="submit" onclick="submitdata()" style="width: 6%;
+    background: #2196F3;
+    border-color: #2196F3;
+    border: 0px;"><i class="fa fa-search" style="color:aliceblue;"></i></button>
+  <input type="submit" onclick="submitdata()" style="display:none;">
 </div>
 {% endblock %}
 <script>
@@ -223,7 +230,7 @@ function autocomplete(inp, arr) {
 }
 
 /*An array containing all the country names in the world:*/
-var countries = ['bgg','bgted']
+var countries = []
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), countries);
 </script>

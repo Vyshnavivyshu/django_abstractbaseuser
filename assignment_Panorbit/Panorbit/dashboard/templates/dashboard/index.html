@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Signup</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -136,10 +136,10 @@ a#submit { z-index: 1; }
                url: 'signup_form/',
               data: JSON.stringify({'first_name': first_name, 'last_name': last_name, 'gender': gender, 'email': email, 'phone_number': phone_number}) ,
                 success: function(response) {
-                    alert("success")
+                    console.log("success")
                 },
                 error: function(response) {
-                    alert("fail")
+                    console.log("fail")
                 },
         });
     }
@@ -226,11 +226,11 @@ function send_email(){
                url: 'send_otp_email/',
               data: JSON.stringify({'email': email}),
                 success: function(response) {
-                    alert("success")
+                    console.log("success")
 
                 },
                 error: function(response) {
-                    alert("fail")
+                    console.log("fail")
                 },
         });
     }
@@ -248,8 +248,7 @@ function validate_otp(){
                url: 'validate_otp/',
               data: JSON.stringify({'email': email,'otp':otp}),
                 success: function(response) {
-                    alert("success")
-                    alert(response)
+
                     if(response == "invalid"){
                         alert("invalid otp...Please signup again");
                     }
@@ -268,7 +267,7 @@ function validate_otp(){
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="width: fit-content;">
   <form class="example" method="post" action="signup_test/" style="width: fit-content;">
               <!--<label for="email"><b>First Name</b></label>-->
               <input type="text" placeholder="Enter Firstname" name="first_name" required>
@@ -289,7 +288,13 @@ function validate_otp(){
               <input type="password" placeholder="Repeat Password" style="display:none;" name="password1" value="atlas@2018">
               <input type="password" placeholder="Repeat Password" style="display:none;" name="password2" value="atlas@2018">
 
-               <button type="button" class="test_all"  onclick="test_all()">Sign Up</button>
+               <div style="
+    display: flex;
+"><button type="button" class="test_all" onclick="test_all()" style="width: -webkit-fill-available;">Sign Up</button>
+    <a href="login/" style="display: flex;"><button type="button" class="btn btn-link">Already have an Account?</button></a>
+               </div>
+
+
               <button type="button" id="send_mail" style="display:none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="send_email()" style="    background-color: #4CAF50;
     opacity: 0.9;
     border-radius: inherit;">SignUp</button>
@@ -298,6 +303,9 @@ function validate_otp(){
               </div>
 
             </form>
+    <form>
+
+    </form>
 
 
   <!-- Modal -->
@@ -308,14 +316,15 @@ function validate_otp(){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">OTP is sent to your Email</h4>
         </div>
         <div class="modal-body">
-          <input type="text" placeholder="OTP" name="otp">
+          <input type="text" placeholder="Please enter the OTP" name="otp">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="validate_otp()">submit</button>
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="validate_otp()" style="width: fit-content;background-color: #2196F3;
+    border-color: #2196F3;color: aliceblue;">submit</button>
         </div>
       </div>
 
