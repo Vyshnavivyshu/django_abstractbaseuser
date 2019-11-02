@@ -25,7 +25,7 @@ SECRET_KEY = 'd0&=jp_u%y2a*bd*p@xf4x$!=u8tf$*mkkv*!^$&&g3bsw*$!3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 OTP_SECRET_KEY = b'1234567890123467890'
 # Application definition
