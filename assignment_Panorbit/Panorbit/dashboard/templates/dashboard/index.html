@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+
+/* Style the horizontal ruler */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+
+body{
+  padding:30px;
+}
+ul {
+    height: 30px;
+    width: 150px;
+    border: 1px #000 solid;
+}
+ul li { padding: 5px 10px; z-index: 2; }
+ul li:not(.init) { float: left; width: 130px; display: none; background: #ddd; }
+ul li:not(.init):hover, ul li.selected:not(.init) { background: #09f; }
+li.init { cursor: pointer; }
+
+a#submit { z-index: 1; }
+
+
+</style>
+    <script type="text/javascript">
+
+    function submitdetails(){
+        first_name = $('[name="fn"]').val();
+        last_name = $('[name="ln"]').val();
+        gender = $('input[name=gender]:checked').val();
+        email = $('[name="mail"]').val();
+        phone_number = $('[name="phno"]').val();
+        $.ajax({
+              type: 'post',
+               url: 'signup_form/',
+              data: JSON.stringify({'first_name': first_name, 'last_name': last_name, 'gender': gender, 'email': email, 'phone_number': phone_number}) ,
+                success: function(response) {
+                    alert("success")
+                },
+                error: function(response) {
+                    alert("fail")
+                },
+        });
+    }
+
+
+
+    $("ul").on("click", ".init", function() {
+        $(this).closest("ul").children('li:not(.init)').toggle();
+    });
+
+    var allOptions = $("ul").children('li:not(.init)');
+    $("ul").on("click", "li:not(.init)", function() {
+        allOptions.removeClass('selected');
+        $(this).addClass('selected');
+        $("ul").children('.init').html($(this).html());
+        allOptions.toggle();
+    });
+
+    function searchOpen() {
+    alert("in search keyup")
+    console.log("search open")
+    var search = $('#txtSearch').val()
+    var data = {
+        search: search
+    };
+    $.ajax({
+        type: 'post',
+        url: 'autocompleteModel/',
+        data: JSON.stringify({'search':search}) ,
+        dataType: 'json',
+        success: function(response) {
+        var i = 0;
+        console.log(response.length)
+        console.log(response[0])
+        $('input[name=search]').after('<ul class="search_items"><li class="init">[SELECT]</li></ul>');
+        while(i<response.length){
+            console.log(response[i])
+            $('.search_items').append('<li class="searched_text">'+response[i]+'</li>');
+            i = i+1;
+         }
+
+        },
+        error: function(response) {
+            alert("fail")
+        },
+    });
+}
+
+
+function searchResult(data) {
+    $( "#txtSearch" ).autocomplete ({
+        source: data
+    });
+}
+
+function test_all(){
+    if($('input[name=first_name]').val() != "" & $('input[name=last_name]').val() != "" & $('input[name=email]').val() != "" & $('input[name=phone_number]').val() != ""){
+        $.ajax({
+                      type: 'post',
+                       url: '/home/check_if_mail_exist/',
+                      data: JSON.stringify({'email': $('input[name=email]').val()}),
+                        success: function(response) {
+                            if(response == "1"){
+                                alert("Email is already registered");
+                            }
+                            else{
+                                $("#send_mail").click();
+                            }
+                        },
+                        error: function(response) {
+                            alert("fail")
+                        },
+                });
+    }
+    else{
+        alert("please fill all details");
+    }
+}
+function send_email(){
+    email = $('input[name=email]').val();
+    if($('input[name=first_name]').val() != "" & $('input[name=last_name]').val() != "" & $('input[name=email]').val() != "" & $('input[name=phone_number]').val() != ""){
+        $.ajax({
+              type: 'post',
+               url: 'send_otp_email/',
+              data: JSON.stringify({'email': email}),
+                success: function(response) {
+                    alert("success")
+
+                },
+                error: function(response) {
+                    alert("fail")
+                },
+        });
+    }
+    else{
+        alert("please fill all details");
+    }
+
+}
+
+function validate_otp(){
+    otp = $('input[name=otp]').val();
+    email = $('input[name=email]').val();
+    $.ajax({
+              type: 'post',
+               url: 'validate_otp/',
+              data: JSON.stringify({'email': email,'otp':otp}),
+                success: function(response) {
+                    alert("success")
+                    alert(response)
+                    if(response == "invalid"){
+                        alert("invalid otp...Please signup again");
+                    }
+                    else{
+                        $(".signupbtn").click();
+                    }
+                },
+                error: function(response) {
+                    alert("fail")
+                },
+        });
+}
+
+
+    </script>
+</head>
+<body>
+
+<div class="container">
+  <form class="example" method="post" action="signup_test/" style="width: fit-content;">
+              <!--<label for="email"><b>First Name</b></label>-->
+              <input type="text" placeholder="Enter Firstname" name="first_name" required>
+
+              <!--<label for="psw"><b>Last Name</b></label>-->
+              <input type="text" placeholder="Enter Lastname" name="last_name" required>
+
+               <label for="psw"><b>Gender</b></label>
+    <input type="radio" name="gender" value="M">Male
+    <input type="radio" name="gender" value="F" checked>Female
+    <input type="radio" name="gender" value="O">Others
+                <br>
+              <!--<label for="psw-repeat"><b>Email</b></label>-->
+              <input type="text" placeholder="Enter Email" name="email" required>
+
+              <!--<label for="psw-repeat"><b>Phone Number</b></label>-->
+              <input type="text" placeholder="Enter Phonenumber in format +919876543210" name="phone_number" required>
+              <input type="password" placeholder="Repeat Password" style="display:none;" name="password1" value="atlas@2018">
+              <input type="password" placeholder="Repeat Password" style="display:none;" name="password2" value="atlas@2018">
+
+               <button type="button" class="test_all"  onclick="test_all()">Sign Up</button>
+              <button type="button" id="send_mail" style="display:none;" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="send_email()" style="    background-color: #4CAF50;
+    opacity: 0.9;
+    border-radius: inherit;">SignUp</button>
+              <div class="clearfix">
+               <button type="submit" class="signupbtn" style="display:none;">Sign Up</button>
+              </div>
+
+            </form>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="OTP" name="otp">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="validate_otp()">submit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

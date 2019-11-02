@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Country details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <form method="post" action="/home/logout/" style="display: flex;
+    margin-right: 15px;
+    margin-top: 10px;
+    justify-content: flex-end;">
+             <button type="submit" class="btn btn-primary">Logout</button>
+ </form>
+    <h3 style="text-align: center;">Country Details</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div><b>Country Code: </b><p1>{{ country_details.code }}</p1></div>
+                <div><b>Country Name: </b><p1>{{ country_details.name }}</p1></div>
+                <div><b>Continent: </b><p1>{{ country_details.continent }}</p1></div>
+                <div><b>Region: </b><p1>{{ country_details.region }}</p1></div>
+                <div><b>Surface Area: </b><p1>{{ country_details.surfacearea }}</p1></div>
+                <div><b>Indeep Year: </b><p1>{{ country_details.indeepyear }}</p1></div>
+                <div><b>Population: </b><p1>{{ country_details.population }}</p1></div>
+                <div><b>Life Expectance: </b><p1>{{ country_details.lifeexpectancy }}</p1></div>
+                <div><b>City Details: </b>
+                    <!--{{ country_details.city_set.select_related.all }}-->
+                    {% for part in country_details.city_set.select_related.all %}
+                    <p style="margin-bottom:1px;"><b>name:  </b>{{ part.name }}    <b>district:  </b>{{ part.district }}              <b>population:  </b>{{ part.population }}</p>
+                    {% endfor %}
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div><b>GNP: </b><p1>{{ country_details.gnp }}</p1></div>
+                <div><b>GNPOld: </b><p1>{{ country_details.gnpold }}</p1></div>
+                <div><b>Local Name: </b><p1>{{ country_details.localname }}</p1></div>
+                <div><b>Government Form:</b><p1>{{ country_details.governmentform }}</p1></div>
+                <div><b>HeadOfState: </b><p1>{{ country_details.headofstate }}</p1></div>
+                <div><b>Capital: </b><p1>{{ country_details.capital }}</p1></div>
+                <div><b>Code2: </b><p1>{{ country_details.code2 }}</p1></div>
+                <div><b>Languages: </b>
+                    {% for part in country_details.countrylanguage_set.select_related.all %}
+                       <p1>{{ part.language }}, </p1>
+                    {% endfor %}
+                </div>
+
+
+
+            </div>
+        </div>
+        <!--<div class="row">-->
+            <!--<table class="table">-->
+                <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>Name</th>-->
+                        <!--<th>District</th>-->
+                        <!--<th>Population</th>-->
+                    <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                    <!--{% for part in country_details.city_set.select_related.all %}-->
+                        <!--<tr>-->
+                            <!--<td>{{ part.name }}</td>-->
+                            <!--<td>{{ part.district }}</td>-->
+                            <!--<td>{{ part.population }}</td>-->
+                        <!--</tr>-->
+                    <!--{% endfor %}-->
+                <!--</tbody>-->
+            <!--</table>-->
+            <!--<div>Languages</div>-->
+            <!--{% for part in country_details.countrylanguage_set.select_related.all %}-->
+               <!--<p1>{{ part.language }}</p1>-->
+            <!--{% endfor %}-->
+        <!--</div>-->
+    </div>
+
+
+
+</body>
+</html>

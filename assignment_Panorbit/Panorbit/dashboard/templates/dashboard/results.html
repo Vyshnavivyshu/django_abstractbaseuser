@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script>
+      function country_details(item) {
+        alert($(item).attr("id"));
+        input = $(item).attr("id");
+        location.replace("/home/country_details/?name="+input);
+    }
+  </script>
+</head>
+<body>
+
+<form method="post" action="/home/logout/" style="display: flex;
+    margin-right: 15px;
+    margin-top: 10px;
+    justify-content: flex-end;">
+             <button type="submit" class="btn btn-primary">Logout</button>
+ </form>
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Search</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for post in results_country %}
+            <tr class="country" id = "{{ post }}" onclick="country_details(this);" style="cursor:pointer;" ><td>{{ post }}</td></tr>
+        {% endfor %}
+        {% for post in results %}
+            <tr><td>{{ post }}</td></tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

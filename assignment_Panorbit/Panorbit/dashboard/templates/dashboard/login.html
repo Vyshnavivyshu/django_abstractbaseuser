@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+    <script type="text/javascript">
+
+        function test_all(){
+                if($('input[name=first_name]').val() != "" & $('input[name=last_name]').val() != "" & $('input[name=email]').val() != "" & $('input[name=phone_number]').val() != ""){
+
+                $.ajax({
+                      type: 'post',
+                       url: '/home/check_if_mail_exist/',
+                      data: JSON.stringify({'email': $('input[name=email]').val()}),
+                        success: function(response) {
+                            if(response == "1"){
+                                $("#send_mail").click();
+                            }
+                            else{
+                                alert("Email is not registered");
+                            }
+                        },
+                        error: function(response) {
+                            alert("fail")
+                        },
+                });
+
+
+                }
+                else{
+                    alert("please fill all details");
+                }
+            }
+
+        function send_email(){
+            email = $('input[name=email]').val();
+            $.ajax({
+                      type: 'post',
+                       url: '/home/send_otp_email_registered/',
+                      data: JSON.stringify({'email': email}),
+                        success: function(response) {
+                            if(response == "no"){
+                                alert("email not registered")
+                            }
+                        },
+                        error: function(response) {
+                            alert("fail")
+                        },
+                });
+        }
+        function validate_otp(){
+            otp = $('input[name=otp]').val();
+            email = $('input[name=email]').val();
+            $.ajax({
+                      type: 'post',
+                       url: '/home/validate_otp/',
+                      data: JSON.stringify({'email': email,'otp':otp}),
+                        success: function(response) {
+                            if(response == "invalid"){
+                                alert("invalid otp...Please signup again");
+                            }
+                            else{
+                                $(".signupbtn").click();
+                            }
+                        },
+                        error: function(response) {
+                            alert("fail")
+                        },
+                });
+        }
+
+    </script>
+
+</head>
+<body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7">
+                    <form method="post" action="/home/login_test/">
+                          <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" class="form-control" name="email" id="email">
+                          </div>
+                        <button type="button" class="btn btn-info btn-lg"  onclick="test_all()" style="
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 20px;
+    margin: 8px 0;
+    border-radius: inherit;
+    border: none;
+    cursor: pointer;
+    width: 17%;
+    opacity: 0.9;
+">Login</button>
+                        <button type="submit"  class="btn btn-default signupbtn" style="display:none;">Submit</button>
+                        <button type="button" id="send_mail" class="btn btn-default" data-toggle="modal" data-target="#myModal" onclick="send_email()" style="display:none;">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <input type="text" placeholder="OTP" name="otp">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="validate_otp()">submit</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
